@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Playfair Display", serif;
+  --color-magenta: #DA205A;
+  --color-cyber-black: #050505;
+  --color-cyan: #00FFFF;
+}
+
+@layer base {
+  body {
+    @apply bg-cyber-black text-white font-sans selection:bg-magenta selection:text-white overflow-x-hidden;
+  }
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)];
+}
+
+.glass-glow {
+  @apply shadow-[inset_0_0_20px_rgba(255,255,255,0.05)];
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid #DA205A;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #DA205A; }
+}
+
+.spotlight-card {
+  position: relative;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(218, 32, 90, 0.4),
+    transparent 40%
+  );
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cyber-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-magenta/50 transition-colors;
+}
+
+/* --- Space Background Effects --- */
+.stars-container {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: twinkle var(--duration) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  opacity: 0;
+  animation: shoot var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(-500px) translateY(500px) rotate(-45deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-500px) translateY(500px) rotate(-45deg);
+    opacity: 0;
+  }
+}

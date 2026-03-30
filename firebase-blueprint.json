@@ -1,0 +1,33 @@
+{
+  "entities": {
+    "MediaItem": {
+      "title": "Media Item",
+      "description": "A single media item (image or video)",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "The URL or base64 data of the media" },
+        "type": { "type": "string", "enum": ["image", "video"], "description": "The type of media" }
+      },
+      "required": ["url", "type"]
+    },
+    "SectionMedia": {
+      "title": "Section Media",
+      "description": "Collection of media items for a specific section or project",
+      "type": "object",
+      "properties": {
+        "media": {
+          "type": "array",
+          "items": { "$ref": "MediaItem" }
+        },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["media"]
+    }
+  },
+  "firestore": {
+    "/sections/{sectionId}": {
+      "schema": "SectionMedia",
+      "description": "Media content for a specific section, project, or profile"
+    }
+  }
+}
